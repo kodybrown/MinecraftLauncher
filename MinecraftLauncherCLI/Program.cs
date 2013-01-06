@@ -26,13 +26,7 @@ namespace MinecraftLauncher
 				Console.WriteLine("       ├─{0,-" + width + "}─┤", new string('─', width));
 
 				foreach (KeyValuePair<int, DirectoryInfo> pair in Manager.Clients) {
-					string name = pair.Value.Name;
-
-					// name == "client 1.4.5-Something"
-					// name == "client 1.4.5"
-					name = name.Substring(6).Trim();
-
-					Console.WriteLine("       │ {0,-" + width + "} │", string.Format("[{0," + indent + "}] {1}", pair.Key, name));
+					Console.WriteLine("       │ {0,-" + width + "} │", string.Format("[{0," + indent + "}] {1}", pair.Key, pair.Value.Name));
 				}
 
 				Console.WriteLine("       └─{0,-" + width + "}─┘", new string('─', width));
@@ -73,6 +67,18 @@ namespace MinecraftLauncher
 							line = Console.ReadLine();
 							if (line.Equals("y", StringComparison.InvariantCultureIgnoreCase)) {
 								Manager.Delete(index);
+							}
+						}
+					}
+				} else if (line.Trim().Equals("hide", StringComparison.InvariantCultureIgnoreCase)) {
+					Console.Write("Type number of item to hide: ");
+					line = Console.ReadLine();
+					if (int.TryParse(line, out index)) {
+						if (index > 0 && index <= Manager.Clients.Count) {
+							Console.WriteLine("Are you sure you want to hide this item? [Y/n]: ");
+							line = Console.ReadLine();
+							if (line.Length == 0 || line.Equals("y", StringComparison.InvariantCultureIgnoreCase)) {
+								Manager.HideFromLauncher(index);
 							}
 						}
 					}

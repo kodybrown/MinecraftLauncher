@@ -37,7 +37,7 @@ namespace MinecraftLauncher
 
 		private void DisplayClients()
 		{
-			Cursor = Cursors.WaitCursor;
+			//Cursor = Cursors.WaitCursor;
 			flowLayoutPanel.Controls.Clear();
 			foreach (KeyValuePair<int, DirectoryInfo> pair in Manager.Clients) {
 				Button btn = CopyButton(clientButton);
@@ -46,7 +46,7 @@ namespace MinecraftLauncher
 				btn.Tag = pair.Key;
 				flowLayoutPanel.Controls.Add(btn);
 			}
-			Cursor = Cursors.Default;
+			//Cursor = Cursors.Default;
 		}
 
 		void client_MouseDown( object sender, MouseEventArgs e )
@@ -136,7 +136,7 @@ namespace MinecraftLauncher
 				Cursor = Cursors.AppStarting;
 				if ((error = Manager.Launch(Index)).Length == 0) {
 					Thread.Sleep(5000);
-					//Application.Exit();
+					Application.Exit();
 				} else {
 					MessageBox.Show(error, "Minecraft Launcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
@@ -188,21 +188,14 @@ namespace MinecraftLauncher
 			Cursor = Cursors.Default;
 		}
 
-		private void removeMenu_Click( object sender, EventArgs e )
+		private void hideMenu_Click( object sender, EventArgs e )
 		{
 			if (SelectedButton != null) {
-				DialogResult r = MessageBox.Show(this, @"Are you sure you want to remove this client?
-
-Press Y to PERMANENTLY delete this client from the disk (this cannot be undone).
-Press N to hide this client from Minecraft Launcher (but leave the client directory on disk).
-Press C to cancel.
-", "Remove Minecraft Client", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+				DialogResult r = MessageBox.Show(this, @"Are you sure you want to hide this client?", "Hide Minecraft Client", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 				try {
 					Cursor = Cursors.WaitCursor;
 					Thread.Sleep(50);
 					if (r == DialogResult.Yes) {
-						Manager.Delete((int)SelectedButton.Tag);
-					} else if (r == DialogResult.No) {
 						Manager.HideFromLauncher((int)SelectedButton.Tag);
 					}
 				} catch (Exception ex) {
@@ -210,6 +203,28 @@ Press C to cancel.
 				}
 			}
 			Cursor = Cursors.Default;
+		}
+
+		private void deleteMenu_Click( object sender, EventArgs e )
+		{
+			if (SelectedButton != null) {
+				DialogResult r = MessageBox.Show(this, @"Are you sure you want to permanently DELETE this client? (this cannot be undone)", "Delete Minecraft Client", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+				try {
+					Cursor = Cursors.WaitCursor;
+					Thread.Sleep(50);
+					if (r == DialogResult.Yes) {
+						Manager.Delete((int)SelectedButton.Tag);
+					}
+				} catch (Exception ex) {
+					MessageBox.Show(ex.Message, "Exception Occurred", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+			}
+			Cursor = Cursors.Default;
+		}
+
+		private void updateMenu_Click( object sender, EventArgs e )
+		{
+
 		}
 
 	}
