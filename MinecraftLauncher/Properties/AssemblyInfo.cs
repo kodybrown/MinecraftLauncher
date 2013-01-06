@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Minecraft Launcher CLI")]
+[assembly: AssemblyTitle("Minecraft Launcher")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7de7468e-2310-4fba-85e1-05438a0c095f")]
+[assembly: Guid("c51faa52-4f29-47f6-b60f-5bb5fdb18e4a")]
 
 // Version information for an assembly consists of the following four values:
 //
